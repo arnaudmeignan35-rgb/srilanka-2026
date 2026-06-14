@@ -94,105 +94,133 @@
 
     const TRIP = {
       title: 'Sri Lanka 2026',
-      startDate: '2026-07-15',
-      endDate: '2026-07-28',
+      startDate: '2026-08-02',
+      endDate: '2026-08-22',
 
       flights: [
-        { id:'f1', from:'Paris', to:'Colombo', fromCode:'CDG', toCode:'CMB', airline:'SriLankan Airlines', flightNumber:'UL XXX', departure:'2026-07-15T21:30:00', arrival:'2026-07-16T17:45:00', duration:'11h 15min', isReturn:false, notes:'Escale possible à Dubaï' },
-        { id:'f2', from:'Colombo', to:'Paris', fromCode:'CMB', toCode:'CDG', airline:'SriLankan Airlines', flightNumber:'UL XXX', departure:'2026-07-28T20:00:00', arrival:'2026-07-29T06:30:00', duration:'11h 30min', isReturn:true },
+        { id:'f1', from:'Paris', to:'Colombo', fromCode:'CDG', toCode:'CMB', airline:'Qatar Airways', flightNumber:'QR ✈️', departure:'2026-08-02T16:25:00', arrival:'2026-08-03T09:00:00', duration:'~14h (escale)', isReturn:false, notes:'Escale à Doha 23h45 → 1h35' },
+        { id:'f2', from:'Colombo', to:'Paris', fromCode:'CMB', toCode:'CDG', airline:'Qatar Airways', flightNumber:'QR ✈️', departure:'2026-08-22T10:30:00', arrival:'2026-08-22T21:10:00', duration:'~13h (escale)', isReturn:true, notes:'Escale à Doha 12h30 → 15h20' },
       ],
 
       hotels: [
-        { id:'h1', name:'Cinnamon Grand Colombo', location:'Colombo', checkIn:'2026-07-16', checkOut:'2026-07-18', dayNumbers:[1,2], address:'77 Galle Road, Colombo 03', stars:5, coordinates:[6.9145,79.8471], notes:'Aéroport → Hôtel en taxi (45 min)' },
-        { id:'h2', name:"Earl’s Regency Hotel", location:'Kandy', checkIn:'2026-07-18', checkOut:'2026-07-20', dayNumbers:[3,4], address:'Tennekumbura, Kandy', stars:4, coordinates:[7.3187,80.635] },
-        { id:'h3', name:'Aliya Resort & Spa', location:'Sigiriya', checkIn:'2026-07-20', checkOut:'2026-07-22', dayNumbers:[5,6], address:'Inamaluwa, Sigiriya', stars:4, coordinates:[7.957,80.7603] },
-        { id:'h4', name:'Ella Dreamer', location:'Ella', checkIn:'2026-07-22', checkOut:'2026-07-24', dayNumbers:[7,8], address:'Ella, Badulla District', stars:3, coordinates:[6.8721,81.0462] },
-        { id:'h5', name:'Cinnamon Wild Yala', location:'Yala', checkIn:'2026-07-24', checkOut:'2026-07-25', dayNumbers:[9], address:'Yala National Park, Tissamaharama', stars:4, coordinates:[6.372,81.5197], notes:'Contacter le lodge pour réserver le safari' },
-        { id:'h6', name:'Mirissa Beach Inn', location:'Mirissa', checkIn:'2026-07-25', checkOut:'2026-07-26', dayNumbers:[10], address:'Mirissa Beach, Province du Sud', stars:3, coordinates:[5.9478,80.4703] },
-        { id:'h7', name:'Amangalla', location:'Galle', checkIn:'2026-07-26', checkOut:'2026-07-28', dayNumbers:[11,12], address:'10 Church Street, Galle Fort', stars:5, coordinates:[6.0306,80.217], notes:'Hôtel dans le Fort colonial — expérience unique !' },
+        { id:'h1', name:'Sigiriya Village', location:'Sigiriya', checkIn:'2026-08-03', checkOut:'2026-08-06', dayNumbers:[2,3,4], address:'Sigiriya, Triangle Culturel', stars:4, coordinates:[7.957,80.7603], notes:'Alternative envisagée : Hotel Sigiriya. Demande hôtel : transfert Colombo, chauffeur pour Pidurangala/Lion Rock/Dambulla, jeep + chauffeur pour le safari de Kaudulla.' },
+        { id:'h2', name:'Fox Jaffna by Fox Resorts', location:'Jaffna', checkIn:'2026-08-06', checkOut:'2026-08-08', dayNumbers:[5,6], address:'Jaffna, Province du Nord', stars:4, coordinates:[9.6615,80.0255], notes:'Alternative envisagée : Delft village stay. Demande hôtel : transfert Sigiriya → Jaffna.' },
+        { id:'h3', name:'Shanmuga Villa', location:'Île de Delft', checkIn:'2026-08-08', checkOut:'2026-08-10', dayNumbers:[7,8], address:'Île de Delft (Neduntheevu)', stars:3, coordinates:[9.5167,79.6833], notes:'Alternative envisagée : Delft village stay. Accès en ferry depuis Jaffna.' },
+        { id:'h4', name:'C Beyond', location:'Nilaveli (Trincomalee)', checkIn:'2026-08-10', checkOut:'2026-08-12', dayNumbers:[9,10], address:'Nilaveli Beach, Trincomalee', stars:4, coordinates:[8.7424,81.1881], notes:'Alternative envisagée : Uga Jungle Beach.' },
+        { id:'h5', name:'Gal Oya Lake Club', location:'Ampara — Gal Oya', checkIn:'2026-08-12', checkOut:'2026-08-14', dayNumbers:[11,12], address:'Parc national de Gal Oya, Ampara', stars:4, coordinates:[7.027,81.45], notes:'Boat safari sur le lac Senanayake.' },
+        { id:'h6', name:'The Spice Trail', location:'Arugam Bay', checkIn:'2026-08-14', checkOut:'2026-08-17', dayNumbers:[13,14,15], address:'Arugam Bay, Province de l’Est', stars:4, coordinates:[6.8412,81.8348], notes:'Alternative envisagée : Jetwing Kottukal Beach House.' },
+        { id:'h7', name:'Ella Dream Catcher', location:'Ella', checkIn:'2026-08-17', checkOut:'2026-08-19', dayNumbers:[16,17], address:'Ella, Badulla District', stars:3, coordinates:[6.8721,81.0462] },
+        { id:'h8', name:'The Glenrock Wellness Nature Resort', location:'Horton Plains', checkIn:'2026-08-19', checkOut:'2026-08-21', dayNumbers:[18,19], address:'Hauts plateaux, près de Horton Plains', stars:4, coordinates:[6.85,80.83], notes:'Base idéale pour la randonnée Baker’s Falls / World’s End.' },
+        { id:'h9', name:'Galle Face Hotel', location:'Colombo', checkIn:'2026-08-21', checkOut:'2026-08-22', dayNumbers:[20], address:'2 Galle Road, Colombo 03', stars:5, coordinates:[6.9271,79.8424], notes:'Alternative envisagée : Jetwing Colombo Seven. Hôtel mythique en bord d’océan.' },
       ],
 
       days: [
-        { number:1, date:'2026-07-16', title:'Arrivée à Colombo', location:'Colombo', coordinates:[6.9271,79.8612], hotelId:'h1',
+        { number:1, date:'2026-08-02', title:'Envol pour le Sri Lanka', location:'Paris CDG', coordinates:[49.0097,2.5479],
           activities:[
-            { id:'a1-1', title:'Atterrissage — Aéroport Bandaranaike', description:'Arrivée à Colombo. Immigration et récupération des bagages.', time:'17:45', type:'transport' },
-            { id:'a1-2', title:'Transfert vers le Cinnamon Grand', description:'Taxi privé jusqu’à l’hôtel, environ 45 min.', time:'18:30', duration:'45 min', type:'transport' },
-            { id:'a1-3', title:'Dîner à l’hôtel', description:'Premier repas sri-lankais : curry, riz, dhal et sambol.', time:'20:30', type:'food' },
+            { id:'a1-1', title:'Départ Paris CDG', description:'Décollage à 16h25 vers Doha avec Qatar Airways.', time:'16:25', type:'transport' },
+            { id:'a1-2', title:'Escale à Doha', description:'Arrivée Doha 23h45, redécollage 1h35 vers Colombo.', time:'23:45', type:'transport' },
           ]},
-        { number:2, date:'2026-07-17', title:'Découverte de Colombo', location:'Colombo', coordinates:[6.9271,79.8612], hotelId:'h1',
+        { number:2, date:'2026-08-03', title:'Arrivée à Colombo & route vers Sigiriya', location:'Sigiriya', coordinates:[7.957,80.7603], hotelId:'h1',
           activities:[
-            { id:'a2-1', title:'Temple Gangaramaya', description:'Splendide temple bouddhiste mêlant architectures cinghalaise, thaïe et indienne.', time:'09:00', duration:'2h', type:'culture', price:'300 LKR/pers.' },
-            { id:'a2-2', title:'Marché de Pettah', description:'Marché vibrant aux épices, tissus, bijoux et street food.', time:'11:30', duration:'1h30', type:'culture' },
-            { id:'a2-3', title:'Déjeuner au Ministry of Crab', description:'L’un des meilleurs restaurants de Colombo — spécialité de crabe géant.', time:'13:30', type:'food', bookingRequired:true, price:'$$$$' },
-            { id:'a2-4', title:'Galle Face Green', description:'Esplanade côtière pour admirer le coucher de soleil sur l’océan Indien.', time:'17:00', type:'relaxation' },
+            { id:'a2-1', title:'Atterrissage à Colombo', description:'Arrivée à l’aéroport Bandaranaike vers 9h.', time:'09:00', type:'transport' },
+            { id:'a2-2', title:'Transfert Colombo → Sigiriya', description:'4h de route en voiture privée (~53 € pour 2). Réservé.', time:'10:00', duration:'4h', type:'transport' },
+            { id:'a2-3', title:'Pidurangala Rock — coucher de soleil', description:'Randonnée vers ce rocher voisin de Sigiriya. Vue spectaculaire au coucher du soleil sur le Lion Rock.', time:'17:00', duration:'2h', type:'adventure' },
           ]},
-        { number:3, date:'2026-07-18', title:'Route vers Kandy', location:'Kandy', coordinates:[7.2906,80.6337], hotelId:'h2',
+        { number:3, date:'2026-08-04', title:'Lion Rock & grottes de Dambulla', location:'Sigiriya', coordinates:[7.957,80.7603], hotelId:'h1',
           activities:[
-            { id:'a3-1', title:'Départ de Colombo', description:'3h30 de route vers la ville sainte de Kandy.', time:'08:00', duration:'3h30', type:'transport' },
-            { id:'a3-2', title:'Jardins Botaniques de Peradeniya', description:'60 hectares de jardins tropicaux — bambous géants, orchidées, allées royales.', time:'12:00', duration:'2h', type:'nature', price:'1 500 LKR/adulte' },
-            { id:'a3-3', title:'Temple de la Dent du Bouddha', description:'Sri Dalada Maligawa — le temple le plus sacré du Sri Lanka.', time:'15:30', duration:'2h', type:'culture', price:'1 500 LKR' },
-            { id:'a3-4', title:'Spectacle de danse Kandyan', description:'Danse traditionnelle et jongleurs de feu.', time:'19:00', duration:'1h', type:'culture', bookingRequired:true, price:'1 000 LKR' },
+            { id:'a3-1', title:'Lion Rock — tôt le matin', description:'Ascension de la forteresse rupestre de Sigiriya (5e siècle, UNESCO). Tôt pour éviter la chaleur et la foule.', time:'06:30', duration:'3h', type:'adventure', price:'~30 USD/adulte' },
+            { id:'a3-2', title:'Grottes de Dambulla', description:'5 grottes abritant 153 bouddhas vieux de 2 000 ans. UNESCO.', time:'14:00', duration:'2h', type:'culture' },
           ]},
-        { number:4, date:'2026-07-19', title:'Kandy & Plantations de thé', location:'Kandy', coordinates:[7.2906,80.6337], hotelId:'h2',
+        { number:4, date:'2026-08-05', title:'Safari à Kaudulla', location:'Sigiriya', coordinates:[7.957,80.7603], hotelId:'h1',
           activities:[
-            { id:'a4-1', title:'Visite d’une plantation de thé', description:'Cueillette du thé, visite de l’usine et dégustation du célèbre thé de Ceylan.', time:'09:00', duration:'2h', type:'nature', price:'500 LKR' },
-            { id:'a4-2', title:'Promenade autour du lac de Kandy', description:'Balade relaxante au bord du lac artificiel.', time:'12:00', duration:'1h', type:'relaxation' },
-            { id:'a4-3', title:'Village artisanal', description:'Batik, laque, teintures naturelles, sculptures sur bois.', time:'14:00', duration:'2h', type:'culture' },
-            { id:'a4-4', title:'Temple Randeniya Raja Maha Viharaya', description:'Temple dans la forêt entouré de singes et de paons en liberté.', time:'16:30', duration:'1h30', type:'nature' },
+            { id:'a4-1', title:'Safari Kaudulla National Park', description:'Jeep avec chauffeur. Troupeaux d’éléphants sauvages — alternative à Minneriya selon la saison.', time:'14:00', duration:'4h', type:'adventure', bookingRequired:true, notes:'À réserver via l’hôtel.' },
           ]},
-        { number:5, date:'2026-07-20', title:'Sigiriya — Rocher du Lion', location:'Sigiriya', coordinates:[7.957,80.7603], hotelId:'h3',
+        { number:5, date:'2026-08-06', title:'Sigiriya → Jaffna', location:'Jaffna', coordinates:[9.6615,80.0255], hotelId:'h2',
           activities:[
-            { id:'a5-1', title:'Route Kandy → Sigiriya', description:'3h de route à travers la campagne du triangle culturel.', time:'07:00', duration:'3h', type:'transport' },
-            { id:'a5-2', title:'Ascension du Rocher de Sigiriya', description:'Forteresse rupestre du 5ème siècle — 200m de parois avec fresques. UNESCO.', time:'10:30', duration:'3h', type:'adventure', price:'30 USD/adulte' },
-            { id:'a5-3', title:'Déjeuner panoramique', description:'Vue sur la jungle depuis le restaurant de l’Aliya Resort.', time:'14:00', type:'food' },
-            { id:'a5-4', title:'Safari au bain des éléphants', description:'Observation des éléphants sauvages à la rivière au coucher du soleil.', time:'16:30', duration:'2h', type:'nature', bookingRequired:true, price:'5 000 LKR/pers.' },
+            { id:'a5-1', title:'Route Sigiriya → Jaffna', description:'4h30 de route vers la péninsule tamoule du nord. Transfert organisé par l’hôtel.', time:'08:00', duration:'4h30', type:'transport' },
+            { id:'a5-2', title:'Promenade en ville', description:'Découverte à pied de Jaffna : marchés, fort hollandais, atmosphère tamoule unique.', time:'15:30', duration:'2h', type:'culture' },
           ]},
-        { number:6, date:'2026-07-21', title:'Dambulla & Triangle Culturel', location:'Dambulla', coordinates:[7.8675,80.6516], hotelId:'h3',
+        { number:6, date:'2026-08-07', title:'Jaffna — culture tamoule', location:'Jaffna', coordinates:[9.6615,80.0255], hotelId:'h2',
           activities:[
-            { id:'a6-1', title:'Grottes de Dambulla', description:'5 grottes abritant 153 bouddhas vieux de 2 000 ans. UNESCO.', time:'08:30', duration:'2h', type:'culture', price:'1 500 LKR' },
-            { id:'a6-2', title:'Safari — Parc de Minneriya', description:'"The Gathering" : jusqu’à 300 éléphants sauvages rassemblés !', time:'14:00', duration:'3h', type:'adventure', bookingRequired:true, price:'50 USD/pers.' },
+            { id:'a6-1', title:'Temple Nallur Kandaswamy', description:'Le plus grand temple hindou du Sri Lanka, vibrant de couleurs et de rituels.', time:'09:00', duration:'2h', type:'culture' },
+            { id:'a6-2', title:'Bibliothèque & marché de Jaffna', description:'Bibliothèque coloniale légendaire et marché animé.', time:'14:00', duration:'2h', type:'culture' },
           ]},
-        { number:7, date:'2026-07-22', title:'Train légendaire vers Ella', location:'Ella', coordinates:[6.8721,81.0462], hotelId:'h4',
+        { number:7, date:'2026-08-08', title:'Ferry vers l’île de Delft', location:'Île de Delft', coordinates:[9.5167,79.6833], hotelId:'h3',
           activities:[
-            { id:'a7-1', title:'Train Kandy → Ella', description:'L’un des plus beaux trajets en train du monde — montagnes, cascades, plantations de thé.', time:'08:47', duration:'6h', type:'adventure', bookingRequired:true, price:'3 000 LKR (classe Observation)', notes:'Réserver bien à l’avance !' },
-            { id:'a7-2', title:'Arrivée à Ella', description:'Petit village de montagne charmant et reposant.', time:'14:30', type:'relaxation' },
-            { id:'a7-3', title:'Pont des 9 arches', description:'L’icône d’Ella — viaduc ferroviaire spectaculaire au milieu des théiers.', time:'17:00', duration:'1h', type:'culture' },
+            { id:'a7-1', title:'Ferry Jaffna → Delft', description:'Traversée en ferry vers l’île la plus reculée du Sri Lanka.', time:'09:00', duration:'1h30', type:'transport' },
+            { id:'a7-2', title:'Découverte de l’île & plage', description:'Chevaux sauvages, ruines coloniales portugaises, baobab, plages désertes.', time:'12:00', duration:'4h', type:'beach' },
           ]},
-        { number:8, date:'2026-07-23', title:'Randonnées à Ella', location:'Ella', coordinates:[6.8721,81.0462], hotelId:'h4',
+        { number:8, date:'2026-08-09', title:'Delft — île & plage', location:'Île de Delft', coordinates:[9.5167,79.6833], hotelId:'h3',
           activities:[
-            { id:'a8-1', title:'Little Adam’s Peak', description:'Randonnée facile avec vue panoramique sur les plantations et la vallée.', time:'06:00', duration:'3h', type:'adventure' },
-            { id:'a8-2', title:'Cascade Ravana Falls', description:'Cascade de 25m en pleine jungle — baignade possible.', time:'11:00', duration:'1h', type:'nature' },
-            { id:'a8-3', title:'Dégustation de thé', description:'Thé fraîchement cueilli directement dans les plantations.', time:'15:00', duration:'1h', type:'relaxation' },
+            { id:'a8-1', title:'Tour de l’île', description:'Tuk-tuk pour explorer l’intérieur — temple, bain royal, paysages de corail.', time:'09:00', duration:'3h', type:'adventure' },
+            { id:'a8-2', title:'Après-midi plage', description:'Détente sur les plages désertes de Delft.', time:'14:00', duration:'4h', type:'beach' },
           ]},
-        { number:9, date:'2026-07-24', title:'Safari à Yala', location:'Yala', coordinates:[6.372,81.5197], hotelId:'h5',
+        { number:9, date:'2026-08-10', title:'Route vers Nilaveli (Trincomalee)', location:'Nilaveli', coordinates:[8.7424,81.1881], hotelId:'h4',
           activities:[
-            { id:'a9-1', title:'Route Ella → Yala', description:'2h30 de route vers le plus célèbre parc national du Sri Lanka.', time:'07:00', duration:'2h30', type:'transport' },
-            { id:'a9-2', title:'Safari — Yala National Park', description:'La plus haute densité de léopards sauvages au monde ! Éléphants, crocodiles, paons.', time:'14:30', duration:'4h', type:'adventure', bookingRequired:true, price:'60 USD/pers.', notes:'Contacter le lodge pour réserver.' },
-            { id:'a9-3', title:'Coucher de soleil au lodge', description:'Apéro et coucher de soleil depuis la terrasse du Cinnamon Wild.', time:'18:30', type:'relaxation' },
+            { id:'a9-1', title:'Retour ferry + route vers Trincomalee', description:'Ferry vers Jaffna puis route vers la côte est (Nilaveli).', time:'08:00', duration:'7h', type:'transport' },
+            { id:'a9-2', title:'Plage de Nilaveli', description:'L’une des plus belles plages du pays — sable blanc, eau turquoise.', time:'17:00', duration:'2h', type:'beach' },
           ]},
-        { number:10, date:'2026-07-25', title:'Mirissa — Baleines & Plage', location:'Mirissa', coordinates:[5.9478,80.4703], hotelId:'h6',
+        { number:10, date:'2026-08-11', title:'Pigeon Island & snorkeling', location:'Nilaveli', coordinates:[8.7424,81.1881], hotelId:'h4',
           activities:[
-            { id:'a10-1', title:'Whale Watching', description:'Baleines bleues et cachalots dans l’Océan Indien. Dauphins quasi garantis !', time:'06:30', duration:'4h', type:'nature', bookingRequired:true, price:'35 USD/adulte – 25 USD/enfant' },
-            { id:'a10-2', title:'Déjeuner de poissons frais', description:'Restaurant de plage — poissons du jour grillés au feu de bois.', time:'13:00', type:'food' },
-            { id:'a10-3', title:'Plage de Mirissa', description:'Plage paradisiaque, eaux turquoises. Snorkeling possible.', time:'14:30', duration:'3h', type:'beach', price:'Masques : 500 LKR' },
+            { id:'a10-1', title:'Excursion à Pigeon Island', description:'10 min de bateau. Snorkeling au-dessus de coraux — tortues, requins de récif inoffensifs, poissons tropicaux.', time:'09:00', duration:'4h', type:'adventure', bookingRequired:true },
+            { id:'a10-2', title:'Plage de Nilaveli', description:'Détente sur la plage l’après-midi.', time:'14:30', duration:'3h', type:'beach' },
           ]},
-        { number:11, date:'2026-07-26', title:'Galle — La Cité Fortifiée', location:'Galle', coordinates:[6.0306,80.217], hotelId:'h7',
+        { number:11, date:'2026-08-12', title:'Route vers Gal Oya', location:'Ampara — Gal Oya', coordinates:[7.027,81.45], hotelId:'h5',
           activities:[
-            { id:'a11-1', title:'Route côtière Mirissa → Galle', description:'1h de trajet le long de la côte sud.', time:'09:00', duration:'1h', type:'transport' },
-            { id:'a11-2', title:'Fort de Galle — UNESCO', description:'Forteresse hollandaise du 17ème siècle. Remparts, phare, rues coloniales.', time:'11:00', duration:'3h', type:'culture' },
-            { id:'a11-3', title:'Shopping & Saphirs', description:'Pierres précieuses, épices, batik, artisanat local.', time:'15:00', duration:'2h', type:'culture' },
+            { id:'a11-1', title:'Route Nilaveli → Gal Oya', description:'~5h de route à travers la campagne sri-lankaise.', time:'08:00', duration:'5h', type:'transport' },
+            { id:'a11-2', title:'Détente au lodge', description:'Arrivée au Gal Oya Lake Club, vue sur le lac Senanayake.', time:'15:00', type:'relaxation' },
           ]},
-        { number:12, date:'2026-07-27', title:'Plages & Tortues', location:'Galle', coordinates:[6.0306,80.217], hotelId:'h7',
+        { number:12, date:'2026-08-13', title:'Boat safari à Gal Oya', location:'Ampara — Gal Oya', coordinates:[7.027,81.45], hotelId:'h5',
           activities:[
-            { id:'a12-1', title:'Hikkaduwa Beach & Tortues', description:'Snorkeling avec tortues marines en liberté dans les coraux.', time:'09:00', duration:'3h', type:'beach', price:'Masques : 500 LKR' },
-            { id:'a12-2', title:'Unawatuna Beach', description:'L’une des plus belles plages du Sri Lanka en eaux calmes.', time:'13:30', duration:'3h', type:'beach' },
-            { id:'a12-3', title:'Dîner d’adieu en famille', description:'Grand repas de clôture — buffet de spécialités sri-lankaises.', time:'19:30', type:'food' },
+            { id:'a12-1', title:'Boat safari sur le lac', description:'Safari unique en bateau — éléphants nageant entre les îles, rares au Sri Lanka. Avec un peu de chance, le lac Senanayake offre l’un des meilleurs spectacles du pays.', time:'06:30', duration:'4h', type:'adventure', bookingRequired:true },
+            { id:'a12-2', title:'Rencontre avec la communauté Vedda', description:'Possibilité de visiter un village des indigènes Vedda (à confirmer avec le lodge).', time:'14:00', duration:'2h', type:'culture' },
           ]},
-        { number:13, date:'2026-07-28', title:'Retour à Paris', location:'Colombo', coordinates:[6.9271,79.8612],
+        { number:13, date:'2026-08-14', title:'Route vers Arugam Bay', location:'Arugam Bay', coordinates:[6.8412,81.8348], hotelId:'h6',
           activities:[
-            { id:'a13-1', title:'Route Galle → Colombo', description:'2h30 de trajet vers l’aéroport Bandaranaike.', time:'15:00', duration:'2h30', type:'transport' },
-            { id:'a13-2', title:'Duty Free', description:'Derniers achats : thé de Ceylan, épices, batik, saphirs…', time:'18:00', duration:'1h', type:'relaxation' },
-            { id:'a13-3', title:'Envol pour Paris CDG ✈️', description:'Vol retour vers Paris. Souvenirs plein la tête !', time:'20:00', duration:'11h30', type:'transport' },
+            { id:'a13-1', title:'Route Gal Oya → Arugam Bay', description:'~3h de route vers la côte est des surfeurs.', time:'09:00', duration:'3h', type:'transport' },
+            { id:'a13-2', title:'Plage d’Arugam Bay', description:'Première baignade dans l’océan Indien à Arugam.', time:'15:00', duration:'3h', type:'beach' },
+          ]},
+        { number:14, date:'2026-08-15', title:'Kumana ou cours de surf', location:'Arugam Bay', coordinates:[6.8412,81.8348], hotelId:'h6',
+          activities:[
+            { id:'a14-1', title:'Parc national de Kumana', description:'Safari moins fréquenté que Yala — éléphants, léopards, oiseaux migrateurs.', time:'06:00', duration:'5h', type:'adventure', bookingRequired:true },
+            { id:'a14-2', title:'Cours de surf', description:'Alternative : cours de surf sur la célèbre vague d’Arugam.', time:'15:00', duration:'2h', type:'adventure' },
+            { id:'a14-3', title:'Plage', description:'Coucher de soleil sur la plage.', time:'17:30', type:'beach' },
+          ]},
+        { number:15, date:'2026-08-16', title:'Cours de cuisine & plage', location:'Arugam Bay', coordinates:[6.8412,81.8348], hotelId:'h6',
+          activities:[
+            { id:'a15-1', title:'Cours de cuisine sri-lankaise', description:'Apprentissage des currys, hoppers et sambols — repas en famille à la fin.', time:'10:00', duration:'3h', type:'food', bookingRequired:true },
+            { id:'a15-2', title:'Après-midi plage', description:'Farniente sur la plage.', time:'14:00', duration:'4h', type:'beach' },
+          ]},
+        { number:16, date:'2026-08-17', title:'Route vers Ella', location:'Ella', coordinates:[6.8721,81.0462], hotelId:'h7',
+          activities:[
+            { id:'a16-1', title:'Route Arugam Bay → Ella', description:'3h de route — montée vers les hauts plateaux et plantations de thé.', time:'09:00', duration:'3h', type:'transport' },
+            { id:'a16-2', title:'Pont des 9 arches', description:'Viaduc ferroviaire spectaculaire au milieu des théiers — tenter de voir passer un train.', time:'15:00', duration:'1h30', type:'culture' },
+          ]},
+        { number:17, date:'2026-08-18', title:'Little Adam’s Peak', location:'Ella', coordinates:[6.8721,81.0462], hotelId:'h7',
+          activities:[
+            { id:'a17-1', title:'Little Adam’s Peak', description:'Randonnée facile (~2h aller-retour) avec vues panoramiques sur les vallées et plantations.', time:'06:30', duration:'2h30', type:'adventure' },
+            { id:'a17-2', title:'Plantation de thé & dégustation', description:'Visite d’une fabrique de thé — du buisson à la tasse.', time:'14:00', duration:'2h', type:'culture' },
+          ]},
+        { number:18, date:'2026-08-19', title:'Route vers Horton Plains', location:'Horton Plains', coordinates:[6.85,80.83], hotelId:'h8',
+          activities:[
+            { id:'a18-1', title:'Route Ella → Horton Plains', description:'1h30 de route à travers les hauts plateaux brumeux.', time:'10:00', duration:'1h30', type:'transport' },
+            { id:'a18-2', title:'Détente au Glenrock', description:'Wellness, spa, jardin — préparation à la randonnée du lendemain.', time:'14:00', type:'relaxation' },
+          ]},
+        { number:19, date:'2026-08-20', title:'Randonnée à Horton Plains', location:'Horton Plains', coordinates:[6.8067,80.8067], hotelId:'h8',
+          activities:[
+            { id:'a19-1', title:'World’s End — randonnée', description:'Boucle de ~9 km à travers le plateau (ou trail Baker’s Falls 4 km, plus court). Falaise de 880m de chute. Partir tôt avant que la brume monte.', time:'05:30', duration:'5h', type:'adventure', notes:'Choix : World’s End trail loop 9 km ou Baker’s Falls trail 4 km' },
+            { id:'a19-2', title:'Après-midi détente', description:'Retour au lodge, repos.', time:'14:00', type:'relaxation' },
+          ]},
+        { number:20, date:'2026-08-21', title:'Route vers Colombo & city tour', location:'Colombo', coordinates:[6.9271,79.8612], hotelId:'h9',
+          activities:[
+            { id:'a20-1', title:'Route Horton Plains → Colombo', description:'2h30 de route vers la capitale.', time:'08:00', duration:'2h30', type:'transport' },
+            { id:'a20-2', title:'Tour de Colombo', description:'Temple Gangaramaya, marché de Pettah, Galle Face Green au coucher du soleil.', time:'14:00', duration:'4h', type:'culture' },
+            { id:'a20-3', title:'Dîner d’adieu', description:'Dernier repas sri-lankais en famille.', time:'19:30', type:'food' },
+          ]},
+        { number:21, date:'2026-08-22', title:'Retour à Paris', location:'Colombo → Paris', coordinates:[6.9271,79.8612],
+          activities:[
+            { id:'a21-1', title:'Vol Colombo → Doha', description:'Décollage à 10h30. Escale à Doha 12h30 → 15h20.', time:'10:30', type:'transport' },
+            { id:'a21-2', title:'Vol Doha → Paris CDG', description:'Arrivée Paris CDG à 21h10. Souvenirs plein la tête 🌴', time:'21:10', type:'transport' },
           ]},
       ],
     };
@@ -216,8 +244,17 @@
     };
 
     const DAY_COLORS = [
-      '#1C3D5A','#1C3D5A','#2A6041','#2A6041','#9B59B6','#9B59B6',
-      '#D4622A','#D4622A','#C8923A','#4A9DB5','#B5537A','#B5537A','#6B7280'
+      '#6B7280',                // Jour 1: vol
+      '#1C3D5A','#1C3D5A','#1C3D5A', // Jours 2-4: Sigiriya
+      '#9B59B6','#9B59B6',       // Jours 5-6: Jaffna
+      '#4A9DB5','#4A9DB5',       // Jours 7-8: Delft Island
+      '#2A6041','#2A6041',       // Jours 9-10: Trincomalee
+      '#C8923A','#C8923A',       // Jours 11-12: Gal Oya
+      '#D4622A','#D4622A','#D4622A', // Jours 13-15: Arugam Bay
+      '#B5537A','#B5537A',       // Jours 16-17: Ella
+      '#2A6041','#2A6041',       // Jours 18-19: Horton Plains
+      '#1C3D5A',                // Jour 20: Colombo
+      '#6B7280'                 // Jour 21: retour
     ];
 
     const TRIP_PASSWORD = 'srilanka2026';
@@ -544,12 +581,12 @@
             <div className="rounded-2xl p-4 mb-5 flex items-center justify-between" style={{ background:'#1C3D5A' }}>
               <div>
                 <p className="text-[11px] uppercase tracking-wider" style={{ color:'rgba(255,255,255,0.5)', fontFamily:'Inter' }}>Départ</p>
-                <p className="font-semibold text-white text-base" style={{ fontFamily:'Inter' }}>15 juillet 2026</p>
+                <p className="font-semibold text-white text-base" style={{ fontFamily:'Inter' }}>2 août 2026</p>
               </div>
               <span className="text-3xl">✈️</span>
               <div className="text-right">
                 <p className="text-[11px] uppercase tracking-wider" style={{ color:'rgba(255,255,255,0.5)', fontFamily:'Inter' }}>Retour</p>
-                <p className="font-semibold text-white text-base" style={{ fontFamily:'Inter' }}>28 juillet 2026</p>
+                <p className="font-semibold text-white text-base" style={{ fontFamily:'Inter' }}>22 août 2026</p>
               </div>
             </div>
 
@@ -724,7 +761,7 @@
             {dep && <FlightCard flight={dep} label="Aller ✈️" color="#1C3D5A" />}
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px" style={{ background:'#E5E7EB' }} />
-              <span className="text-xs text-gray-400 uppercase tracking-widest" style={{ fontFamily:'Inter' }}>13 jours</span>
+              <span className="text-xs text-gray-400 uppercase tracking-widest" style={{ fontFamily:'Inter' }}>21 jours au Sri Lanka</span>
               <div className="flex-1 h-px" style={{ background:'#E5E7EB' }} />
             </div>
             {ret && <FlightCard flight={ret} label="Retour ✈️" color="#2A6041" />}
@@ -733,10 +770,10 @@
               <p className="font-display text-xl font-semibold mb-3" style={{ color:'#1C3D5A' }}>Infos pratiques ✈️</p>
               {[
                 { icon:'🛂', text:'Visa électronique (ETA) obligatoire — à demander sur eta.gov.lk avant le départ' },
-                { icon:'💉', text:'Aucune vaccination obligatoire. Antipaludéens recommandés pour Yala' },
+                { icon:'💉', text:'Aucune vaccination obligatoire. Antipaludéens recommandés pour Gal Oya / Kumana' },
                 { icon:'💰', text:'Monnaie : Roupie Sri-lankaise (LKR). 1 EUR ≈ 330 LKR' },
                 { icon:'📱', text:'SIM locale à l’aéroport — excellent réseau 4G partout' },
-                { icon:'🌡️', text:'Juillet : 27–32°C, humide. Côte est très belle à cette période' },
+                { icon:'🌡️', text:'Août : saison sèche sur la côte est (Trinco, Arugam). 27–32°C, humide' },
               ].map((tip,i) => (
                 <div key={i} className="flex items-start gap-3 mb-2">
                   <span className="text-lg shrink-0">{tip.icon}</span>
