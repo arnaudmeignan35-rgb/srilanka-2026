@@ -88,7 +88,7 @@
   -->
 
   <script type="text/babel" data-presets="react">
-    const { useState, useEffect, useRef, useCallback, createContext, useContext, useReducer } = React;
+    const { useState, useEffect, useRef, useMemo, useCallback, createContext, useContext, useReducer } = React;
 
     // ─── TRIP DATA ────────────────────────────────────────────────────────────
 
@@ -299,6 +299,7 @@
       const [currentUser, setCurrentUser] = useState(() => loadLS('sl_user', null));
       const [messages, setMessages] = useState(() => loadLS('sl_msgs', []));
       const [page, setPage] = useState('map');
+      const [pendingDay, setPendingDay] = useState(null);
 
       const login = (pwd) => {
         if (pwd === TRIP_PASSWORD) {
@@ -329,7 +330,7 @@
       const logout = () => { setIsAuth(false); setCurrentUser(null); saveLS('sl_auth', false); saveLS('sl_user', null); };
 
       return (
-        <AppContext.Provider value={{ isAuth, currentUser, messages, page, setPage, login, chooseUser, sendMessage, completeTask, logout }}>
+        <AppContext.Provider value={{ isAuth, currentUser, messages, page, setPage, pendingDay, setPendingDay, login, chooseUser, sendMessage, completeTask, logout }}>
           {children}
         </AppContext.Provider>
       );
@@ -479,14 +480,39 @@
 
     // ─── MAP PAGE ────────────────────────────────────────────────────────────
 
+    // Group consecutive days into stages by location.
+    // Skips the Paris CDG departure day so the map only shows Sri Lanka stops.
+    function buildStages() {
+      const result = [];
+      TRIP.days.forEach(day => {
+        const [lat, lng] = day.coordinates;
+        // Filter out non-Sri Lanka points (e.g. Paris CDG)
+        if (lat < 5 || lat > 10 || lng < 79 || lng > 82) return;
+        const last = result[result.length - 1];
+        if (last && last.location === day.location) {
+          last.days.push(day);
+        } else {
+          result.push({
+            location: day.location,
+            coordinates: day.coordinates,
+            days: [day],
+          });
+        }
+      });
+      return result.map((s, i) => ({ ...s, stageNumber: i + 1 }));
+    }
+
+    const STAGE_COLORS = ['#1C3D5A','#9B59B6','#4A9DB5','#2A6041','#C8923A','#D4622A','#B5537A','#2A6041','#1C3D5A'];
+
     function MapPage() {
+      const { setPage, setPendingDay } = useApp();
       const mapRef = useRef(null);
       const leafletRef = useRef(null);
       const markersRef = useRef([]);
-      const [selectedDay, setSelectedDay] = useState(null);
+      const [selectedStage, setSelectedStage] = useState(null);
 
-      const days = TRIP.days;
-      const selected = days.find(d => d.number === selectedDay);
+      const stages = useMemo(() => buildStages(), []);
+      const selected = stages.find(s => s.stageNumber === selectedStage);
 
       useEffect(() => {
         if (!mapRef.current || leafletRef.current) return;
@@ -495,97 +521,128 @@
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
           attribution: '© OpenStreetMap © CARTO', maxZoom: 19
         }).addTo(map);
-        map.setView([7.5, 80.7], 7);
+        // Fit Sri Lanka
+        map.fitBounds([[5.9, 79.6], [9.9, 81.9]], { padding: [40, 40] });
         leafletRef.current = map;
 
-        // Route polyline
-        const route = days.map(d => d.coordinates);
-        L.polyline(route, { color:'#C8923A', weight:2.5, dashArray:'6 8', opacity:0.7 }).addTo(map);
+        // Route polyline through stages
+        const route = stages.map(s => s.coordinates);
+        L.polyline(route, { color:'#C8923A', weight:2.5, dashArray:'6 8', opacity:0.75 }).addTo(map);
 
-        // Day markers
-        days.forEach((day, idx) => {
-          const color = DAY_COLORS[idx] || '#1C3D5A';
+        // Stage markers
+        stages.forEach((stage, idx) => {
+          const color = STAGE_COLORS[idx % STAGE_COLORS.length];
+          const dayLabel = stage.days.length > 1
+            ? `J${stage.days[0].number}-${stage.days[stage.days.length-1].number}`
+            : `J${stage.days[0].number}`;
           const icon = L.divIcon({
             className: '',
-            html: `<div class="day-marker" style="background:${color};width:30px;height:30px;font-size:12px">${day.number}</div>`,
-            iconSize: [30, 30], iconAnchor: [15, 15]
+            html: `<div style="background:${color};color:white;border:2.5px solid white;border-radius:24px;padding:5px 10px;font-family:Inter,sans-serif;font-weight:700;font-size:12px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3);text-align:center;line-height:1.1">
+              <div style="font-size:13px">${dayLabel}</div>
+              <div style="font-size:9px;font-weight:500;opacity:.85;margin-top:1px">${stage.location}</div>
+            </div>`,
+            iconSize: null, iconAnchor: [40, 18]
           });
-          const marker = L.marker(day.coordinates, { icon }).addTo(map);
-          marker.on('click', () => setSelectedDay(day.number));
-          markersRef.current.push({ marker, day: day.number });
+          const marker = L.marker(stage.coordinates, { icon }).addTo(map);
+          marker.on('click', () => setSelectedStage(stage.stageNumber));
+          markersRef.current.push({ marker, stageNumber: stage.stageNumber, color });
         });
 
         return () => { map.remove(); leafletRef.current = null; markersRef.current = []; };
       }, []);
 
-      // Fly to selected day
+      // Fly to selected stage
       useEffect(() => {
-        if (!leafletRef.current || !selected) return;
-        leafletRef.current.flyTo(selected.coordinates, 10, { duration: 1 });
-        // Update marker sizes
-        markersRef.current.forEach(({ marker, day: dn }) => {
-          const idx = dn - 1;
-          const color = DAY_COLORS[idx] || '#1C3D5A';
-          const active = dn === selectedDay;
-          const icon = L.divIcon({
-            className: '',
-            html: `<div class="day-marker" style="background:${color};width:${active?38:30}px;height:${active?38:30}px;font-size:${active?14:12}px">${dn}</div>`,
-            iconSize: [active?38:30, active?38:30], iconAnchor: [(active?38:30)/2, (active?38:30)/2]
-          });
-          marker.setIcon(icon);
-        });
-      }, [selectedDay]);
+        if (!leafletRef.current) return;
+        if (selected) {
+          leafletRef.current.flyTo(selected.coordinates, 9, { duration: 0.8 });
+        } else {
+          leafletRef.current.fitBounds([[5.9, 79.6], [9.9, 81.9]], { padding: [40, 40] });
+        }
+      }, [selectedStage]);
+
+      const goToDay = (dayNum) => {
+        setPendingDay(dayNum);
+        setPage('timeline');
+      };
 
       return (
         <div className="h-full relative">
           <div ref={mapRef} className="h-full w-full" />
 
-          {/* Selected day panel */}
+          {/* Selected stage panel */}
           {selected ? (
-            <div className="absolute bottom-0 left-0 right-0 z-10 rounded-t-3xl p-5 pb-4" style={{ background:'white', boxShadow:'0 -4px 30px rgba(0,0,0,0.12)' }}>
+            <div className="absolute bottom-0 left-0 right-0 rounded-t-3xl p-5 pb-4 page-enter" style={{ background:'white', boxShadow:'0 -4px 30px rgba(0,0,0,0.15)', zIndex:1000 }}>
               <div className="flex items-start justify-between mb-3">
-                <div>
-                  <p className="text-[11px] text-gray-400 uppercase tracking-wider" style={{ fontFamily:'Inter' }}>
-                    Jour {selected.number} · {new Date(selected.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})}
+                <div className="flex-1 min-w-0">
+                  <p className="text-[11px] uppercase tracking-wider" style={{ color: STAGE_COLORS[(selected.stageNumber-1) % STAGE_COLORS.length], fontFamily:'Inter', fontWeight:600 }}>
+                    Étape {selected.stageNumber} · {selected.days.length} jour{selected.days.length>1?'s':''}
                   </p>
                   <h2 className="font-display text-2xl font-semibold leading-tight" style={{ color:'#1C3D5A' }}>
-                    {selected.title}
+                    {selected.location}
                   </h2>
+                  <p className="text-xs text-gray-400 mt-0.5" style={{ fontFamily:'Inter' }}>
+                    Du {new Date(selected.days[0].date).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})}
+                    {selected.days.length>1 && ` au ${new Date(selected.days[selected.days.length-1].date).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})}`}
+                  </p>
                 </div>
-                <button onClick={() => setSelectedDay(null)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm"
+                <button onClick={() => setSelectedStage(null)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0"
                   style={{ background:'#F3F4F6', color:'#6B7280' }}>✕</button>
               </div>
-              <div className="flex gap-2 flex-wrap">
-                {selected.activities.map(a => {
-                  const m = ACTIVITY[a.type];
-                  return (
-                    <span key={a.id} className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full"
-                      style={{ fontFamily:'Inter', border:`1px solid ${m.color}40`, color:m.color, background:m.color+'12' }}>
-                      {m.icon} {a.title}
-                    </span>
-                  );
-                })}
+
+              <p className="text-[11px] text-gray-400 mb-2" style={{ fontFamily:'Inter' }}>
+                Touche un jour pour voir le détail :
+              </p>
+              <div className="flex flex-col gap-2 max-h-64 overflow-y-auto scrollable">
+                {selected.days.map(day => (
+                  <button
+                    key={day.number}
+                    onClick={() => goToDay(day.number)}
+                    className="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl active:scale-[0.98] transition-transform"
+                    style={{ background:'#F9F4EC', border:'1px solid #EBE3D2' }}
+                  >
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                      style={{ background: STAGE_COLORS[(selected.stageNumber-1) % STAGE_COLORS.length] }}>
+                      <span className="text-white text-xs font-bold" style={{ fontFamily:'Inter' }}>J{day.number}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] text-gray-400 uppercase tracking-wider" style={{ fontFamily:'Inter' }}>
+                        {new Date(day.date).toLocaleDateString('fr-FR',{weekday:'short', day:'numeric', month:'short'})}
+                      </p>
+                      <p className="text-sm font-semibold leading-tight truncate" style={{ color:'#1C3D5A', fontFamily:'Inter' }}>
+                        {day.title}
+                      </p>
+                    </div>
+                    <span className="text-gray-400 shrink-0">→</span>
+                  </button>
+                ))}
               </div>
             </div>
           ) : (
-            <div className="absolute bottom-0 left-0 right-0 z-10 p-3">
-              <div className="rounded-2xl p-3" style={{ background:'rgba(255,255,255,0.92)', backdropFilter:'blur(12px)', boxShadow:'0 4px 20px rgba(0,0,0,0.08)' }}>
+            <div className="absolute bottom-0 left-0 right-0 p-3" style={{ zIndex:1000 }}>
+              <div className="rounded-2xl p-3" style={{ background:'rgba(255,255,255,0.94)', backdropFilter:'blur(12px)', boxShadow:'0 4px 20px rgba(0,0,0,0.1)' }}>
                 <p className="text-[11px] text-gray-400 text-center uppercase tracking-wider mb-2" style={{ fontFamily:'Inter' }}>
-                  Toucher un marqueur
+                  Les {stages.length} étapes du voyage
                 </p>
                 <div className="flex gap-2 overflow-x-auto scrollable pb-1">
-                  {days.map((d, idx) => (
-                    <button key={d.number} onClick={() => setSelectedDay(d.number)}
-                      className="shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl"
-                      style={{ background:'#F9FAFB', border:'1px solid #E5E7EB' }}>
-                      <span className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                        style={{ background: DAY_COLORS[idx], fontFamily:'Inter' }}>
-                        {d.number}
-                      </span>
-                      <span className="text-[10px] text-gray-400 whitespace-nowrap" style={{ fontFamily:'Inter' }}>{d.location}</span>
-                    </button>
-                  ))}
+                  {stages.map((s, idx) => {
+                    const color = STAGE_COLORS[idx % STAGE_COLORS.length];
+                    const dayLabel = s.days.length > 1
+                      ? `J${s.days[0].number}-${s.days[s.days.length-1].number}`
+                      : `J${s.days[0].number}`;
+                    return (
+                      <button key={s.stageNumber} onClick={() => setSelectedStage(s.stageNumber)}
+                        className="shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl"
+                        style={{ background:'#F9FAFB', border:'1px solid #E5E7EB' }}>
+                        <span className="px-2 py-0.5 rounded-full text-white text-[10px] font-bold"
+                          style={{ background: color, fontFamily:'Inter' }}>
+                          {dayLabel}
+                        </span>
+                        <span className="text-[10px] text-gray-500 whitespace-nowrap" style={{ fontFamily:'Inter' }}>{s.location}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -597,7 +654,19 @@
     // ─── TIMELINE PAGE ───────────────────────────────────────────────────────
 
     function TimelinePage() {
-      const [openDay, setOpenDay] = useState(1);
+      const { pendingDay, setPendingDay } = useApp();
+      const [openDay, setOpenDay] = useState(pendingDay || 1);
+
+      useEffect(() => {
+        if (pendingDay) {
+          setOpenDay(pendingDay);
+          setTimeout(() => {
+            const el = document.getElementById(`timeline-day-${pendingDay}`);
+            el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+          setPendingDay(null);
+        }
+      }, [pendingDay]);
 
       return (
         <div className="scrollable h-full" style={{ background:'#F9F4EC' }}>
@@ -623,7 +692,7 @@
                 const isOpen = openDay === day.number;
                 const dateStr = new Date(day.date).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'short' });
                 return (
-                  <div key={day.number} className="rounded-2xl overflow-hidden card-shadow" style={{ background:'white' }}>
+                  <div key={day.number} id={`timeline-day-${day.number}`} className="rounded-2xl overflow-hidden card-shadow" style={{ background:'white' }}>
                     <button className="w-full text-left px-4 pt-4 pb-3" onClick={() => setOpenDay(isOpen ? null : day.number)}>
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background:'#1C3D5A' }}>
