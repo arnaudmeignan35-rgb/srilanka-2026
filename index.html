@@ -98,31 +98,55 @@
       endDate: '2026-08-22',
 
       flights: [
-        { id:'f1', from:'Paris', to:'Colombo', fromCode:'CDG', toCode:'CMB', airline:'Qatar Airways', flightNumber:'QR ✈️', departure:'2026-08-02T16:25:00', arrival:'2026-08-03T09:00:00', duration:'~14h (escale)', isReturn:false, notes:'Escale à Doha 23h45 → 1h35' },
-        { id:'f2', from:'Colombo', to:'Paris', fromCode:'CMB', toCode:'CDG', airline:'Qatar Airways', flightNumber:'QR ✈️', departure:'2026-08-22T10:30:00', arrival:'2026-08-22T21:10:00', duration:'~13h (escale)', isReturn:true, notes:'Escale à Doha 12h30 → 15h20' },
+        { id:'f1', from:'Paris', to:'Colombo', fromCode:'CDG', toCode:'CMB', airline:'Qatar Airways', flightNumber:'QR 040 + QR 664', departure:'2026-08-02T16:25:00', arrival:'2026-08-03T09:00:00', duration:'13h 5min (escale 1h50)', isReturn:false, confirmationCode:'9J8958', notes:'Escale Doha 23h45 → 1h35 · Service Al Maha Gold Transit inclus',
+          legs:[
+            { flight:'QR 040', aircraft:'Airbus A380-800', from:'CDG', to:'DOH', fromCity:'Paris (T1)', toCity:'Doha', dep:'2026-08-02T16:25:00', arr:'2026-08-02T23:45:00', duration:'6h 20min', cabin:'Economy (S)', baggage:'30 kg/pers.' },
+            { flight:'QR 664', aircraft:'Boeing 787-9', from:'DOH', to:'CMB', fromCity:'Doha', toCity:'Colombo', dep:'2026-08-03T01:35:00', arr:'2026-08-03T09:00:00', duration:'4h 55min', cabin:'Economy (S)', baggage:'30 kg/pers.' },
+          ],
+          seats:[
+            { name:'Arnaud',    leg1:'55A', leg2:'25K' },
+            { name:'Julia',     leg1:'55B', leg2:'25J' },
+            { name:'Louise',    leg1:'55C', leg2:'25H' },
+            { name:'Philomène', leg1:'56A', leg2:'26K' },
+            { name:'Victor',    leg1:'56B', leg2:'26J' },
+          ] },
+        { id:'f2', from:'Colombo', to:'Paris', fromCode:'CMB', toCode:'CDG', airline:'Qatar Airways', flightNumber:'QR 665 + QR 037', departure:'2026-08-22T10:30:00', arrival:'2026-08-22T21:10:00', duration:'14h 10min (escale 2h50)', isReturn:true, confirmationCode:'9J8958', notes:'Escale Doha 12h30 → 15h20 · Service Al Maha Gold Transit inclus',
+          legs:[
+            { flight:'QR 665', aircraft:'Boeing 787-9', from:'CMB', to:'DOH', fromCity:'Colombo', toCity:'Doha', dep:'2026-08-22T10:30:00', arr:'2026-08-22T12:30:00', duration:'4h 30min', cabin:'Economy (L)', baggage:'30 kg/pers.' },
+            { flight:'QR 037', aircraft:'Airbus A350-900', from:'DOH', to:'CDG', fromCity:'Doha', toCity:'Paris (T1)', dep:'2026-08-22T15:20:00', arr:'2026-08-22T21:10:00', duration:'6h 50min', cabin:'Economy (L)', baggage:'30 kg/pers.' },
+          ],
+          seats:[
+            { name:'Arnaud',    leg1:'21A', leg2:'25A' },
+            { name:'Julia',     leg1:'21B', leg2:'25B' },
+            { name:'Louise',    leg1:'21C', leg2:'25C' },
+            { name:'Philomène', leg1:'22A', leg2:'26A' },
+            { name:'Victor',    leg1:'22C', leg2:'26C' },
+          ] },
       ],
 
       hotels: [
-        { id:'h1', name:'Sigiriya Village', location:'Sigiriya', checkIn:'2026-08-03', checkOut:'2026-08-06', dayNumbers:[2,3,4], address:'Sigiriya, Triangle Culturel', stars:4, coordinates:[7.957,80.7603], notes:'Alternative envisagée : Hotel Sigiriya. Demande hôtel : transfert Colombo, chauffeur pour Pidurangala/Lion Rock/Dambulla, jeep + chauffeur pour le safari de Kaudulla.' },
-        { id:'h2', name:'Fox Jaffna by Fox Resorts', location:'Jaffna', checkIn:'2026-08-06', checkOut:'2026-08-08', dayNumbers:[5,6], address:'Jaffna, Province du Nord', stars:4, coordinates:[9.6615,80.0255], notes:'Alternative envisagée : Delft village stay. Demande hôtel : transfert Sigiriya → Jaffna.' },
-        { id:'h3', name:'Shanmuga Villa', location:'Île de Delft', checkIn:'2026-08-08', checkOut:'2026-08-10', dayNumbers:[7,8], address:'Île de Delft (Neduntheevu)', stars:3, coordinates:[9.5167,79.6833], notes:'Alternative envisagée : Delft village stay. Accès en ferry depuis Jaffna.' },
-        { id:'h4', name:'C Beyond', location:'Nilaveli (Trincomalee)', checkIn:'2026-08-10', checkOut:'2026-08-12', dayNumbers:[9,10], address:'Nilaveli Beach, Trincomalee', stars:4, coordinates:[8.7424,81.1881], notes:'Alternative envisagée : Uga Jungle Beach.' },
-        { id:'h5', name:'Gal Oya Lake Club', location:'Ampara — Gal Oya', checkIn:'2026-08-12', checkOut:'2026-08-14', dayNumbers:[11,12], address:'Parc national de Gal Oya, Ampara', stars:4, coordinates:[7.027,81.45], notes:'Boat safari sur le lac Senanayake.' },
-        { id:'h6', name:'The Spice Trail', location:'Arugam Bay', checkIn:'2026-08-14', checkOut:'2026-08-17', dayNumbers:[13,14,15], address:'Arugam Bay, Province de l’Est', stars:4, coordinates:[6.8412,81.8348], notes:'Alternative envisagée : Jetwing Kottukal Beach House.' },
-        { id:'h7', name:'Ella Dream Catcher', location:'Ella', checkIn:'2026-08-17', checkOut:'2026-08-19', dayNumbers:[16,17], address:'Ella, Badulla District', stars:3, coordinates:[6.8721,81.0462] },
-        { id:'h8', name:'The Glenrock Wellness Nature Resort', location:'Horton Plains', checkIn:'2026-08-19', checkOut:'2026-08-21', dayNumbers:[18,19], address:'Hauts plateaux, près de Horton Plains', stars:4, coordinates:[6.85,80.83], notes:'Base idéale pour la randonnée Baker’s Falls / World’s End.' },
-        { id:'h9', name:'Galle Face Hotel', location:'Colombo', checkIn:'2026-08-21', checkOut:'2026-08-22', dayNumbers:[20], address:'2 Galle Road, Colombo 03', stars:5, coordinates:[6.9271,79.8424], notes:'Alternative envisagée : Jetwing Colombo Seven. Hôtel mythique en bord d’océan.' },
+        { id:'h1', name:'Sigiriya Village', location:'Sigiriya', checkIn:'2026-08-03', checkOut:'2026-08-06', dayNumbers:[2,3,4], address:'Sigiriya, Triangle Culturel', stars:4, coordinates:[7.957,80.7603], image:'https://upload.wikimedia.org/wikipedia/commons/e/e6/Sigiriya_%28141688197%29.jpeg', notes:'Alternative envisagée : Hotel Sigiriya. Demande hôtel : transfert Colombo, chauffeur pour Pidurangala/Lion Rock/Dambulla, jeep + chauffeur pour le safari de Kaudulla.' },
+        { id:'h2', name:'Fox Jaffna by Fox Resorts', location:'Jaffna', checkIn:'2026-08-06', checkOut:'2026-08-08', dayNumbers:[5,6], address:'Jaffna, Province du Nord', stars:4, coordinates:[9.6615,80.0255], image:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800', notes:'Alternative envisagée : Delft village stay. Demande hôtel : transfert Sigiriya → Jaffna.' },
+        { id:'h3', name:'Shanmuga Villa', location:'Île de Delft', checkIn:'2026-08-08', checkOut:'2026-08-10', dayNumbers:[7,8], address:'Île de Delft (Neduntheevu)', stars:3, coordinates:[9.5167,79.6833], image:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800', notes:'Alternative envisagée : Delft village stay. Accès en ferry depuis Jaffna.' },
+        { id:'h4', name:'C Beyond', location:'Nilaveli (Trincomalee)', checkIn:'2026-08-10', checkOut:'2026-08-12', dayNumbers:[9,10], address:'Nilaveli Beach, Trincomalee', stars:4, coordinates:[8.7424,81.1881], image:'https://cbeyondnilaveli.com/wp-content/uploads/2025/02/DJI_0111___edit_-1-819x1024.jpg', notes:'Alternative envisagée : Uga Jungle Beach.' },
+        { id:'h5', name:'Gal Oya Lake Club', location:'Ampara — Gal Oya', checkIn:'2026-08-12', checkOut:'2026-08-14', dayNumbers:[11,12], address:'Parc national de Gal Oya, Ampara', stars:4, coordinates:[7.027,81.45], image:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800', notes:'Boat safari sur le lac Senanayake.' },
+        { id:'h6', name:'The Spice Trail', location:'Arugam Bay', checkIn:'2026-08-14', checkOut:'2026-08-17', dayNumbers:[13,14,15], address:'Arugam Bay, Province de l’Est', stars:4, coordinates:[6.8412,81.8348], image:'https://images.unsplash.com/photo-1505881502353-a1986add3762?w=800', notes:'Alternative envisagée : Jetwing Kottukal Beach House.' },
+        { id:'h7', name:'Ella Dream Catcher', location:'Ella', checkIn:'2026-08-17', checkOut:'2026-08-19', dayNumbers:[16,17], address:'Ella, Badulla District', stars:3, coordinates:[6.8721,81.0462], image:'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800' },
+        { id:'h8', name:'The Glenrock Wellness Nature Resort', location:'Horton Plains', checkIn:'2026-08-19', checkOut:'2026-08-21', dayNumbers:[18,19], address:'Hauts plateaux, près de Horton Plains', stars:4, coordinates:[6.85,80.83], image:'https://www.theglenrock.com/wp-content/uploads/2025/07/image-1024x431.webp', notes:'Base idéale pour la randonnée Baker’s Falls / World’s End.' },
+        { id:'h9', name:'Galle Face Hotel', location:'Colombo', checkIn:'2026-08-21', checkOut:'2026-08-22', dayNumbers:[20], address:'2 Galle Road, Colombo 03', stars:5, coordinates:[6.9271,79.8424], image:'https://upload.wikimedia.org/wikipedia/commons/f/f9/Galle_Face_Hotel%2C_Colombo.JPG', notes:'Alternative envisagée : Jetwing Colombo Seven. Hôtel mythique en bord d’océan.' },
       ],
 
       days: [
         { number:1, date:'2026-08-02', title:'Envol pour le Sri Lanka', location:'Paris CDG', coordinates:[49.0097,2.5479],
           activities:[
-            { id:'a1-1', title:'Départ Paris CDG', description:'Décollage à 16h25 vers Doha avec Qatar Airways.', time:'16:25', type:'transport' },
-            { id:'a1-2', title:'Escale à Doha', description:'Arrivée Doha 23h45, redécollage 1h35 vers Colombo.', time:'23:45', type:'transport' },
+            { id:'a1-1', title:'Arrivée à CDG Terminal 1', description:'3h avant le décollage. PNR 9J8958.', time:'13:25', type:'transport' },
+            { id:'a1-2', title:'QR 040 — Paris → Doha', description:'Airbus A380-800. Bagages 30 kg/pers.', time:'16:25', duration:'6h 20min', type:'transport' },
+            { id:'a1-3', title:'Escale Doha (Al Maha Gold Transit)', description:'Arrivée Doha 23h45, accueil VIP Al Maha à Hamad International Airport.', time:'23:45', type:'transport' },
           ]},
         { number:2, date:'2026-08-03', title:'Arrivée à Colombo & route vers Sigiriya', location:'Sigiriya', coordinates:[7.957,80.7603], hotelId:'h1',
           activities:[
-            { id:'a2-1', title:'Atterrissage à Colombo', description:'Arrivée à l’aéroport Bandaranaike vers 9h.', time:'09:00', type:'transport' },
+            { id:'a2-0', title:'QR 664 — Doha → Colombo', description:'Boeing 787-9. Décollage Doha 01:35.', time:'01:35', duration:'4h 55min', type:'transport' },
+            { id:'a2-1', title:'Atterrissage à Colombo', description:'Arrivée Bandaranaike International Airport à 09:00.', time:'09:00', type:'transport' },
             { id:'a2-2', title:'Transfert Colombo → Sigiriya', description:'4h de route en voiture privée (~53 € pour 2). Réservé.', time:'10:00', duration:'4h', type:'transport' },
             { id:'a2-3', title:'Pidurangala Rock — coucher de soleil', description:'Randonnée vers ce rocher voisin de Sigiriya. Vue spectaculaire au coucher du soleil sur le Lion Rock.', time:'17:00', duration:'2h', type:'adventure' },
           ]},
@@ -219,8 +243,10 @@
           ]},
         { number:21, date:'2026-08-22', title:'Retour à Paris', location:'Colombo → Paris', coordinates:[6.9271,79.8612],
           activities:[
-            { id:'a21-1', title:'Vol Colombo → Doha', description:'Décollage à 10h30. Escale à Doha 12h30 → 15h20.', time:'10:30', type:'transport' },
-            { id:'a21-2', title:'Vol Doha → Paris CDG', description:'Arrivée Paris CDG à 21h10. Souvenirs plein la tête 🌴', time:'21:10', type:'transport' },
+            { id:'a21-0', title:'Arrivée à l’aéroport CMB', description:'3h avant le départ. Service Al Maha pour le transit Doha.', time:'07:30', type:'transport' },
+            { id:'a21-1', title:'QR 665 — Colombo → Doha', description:'Boeing 787-9. Décollage 10:30, arrivée Doha 12:30.', time:'10:30', duration:'4h 30min', type:'transport' },
+            { id:'a21-2', title:'QR 037 — Doha → Paris CDG', description:'Airbus A350-900. Décollage 15:20, arrivée Paris CDG (T1) à 21:10.', time:'15:20', duration:'6h 50min', type:'transport' },
+            { id:'a21-3', title:'Atterrissage à Paris CDG', description:'Souvenirs plein la tête 🌴', time:'21:10', type:'transport' },
           ]},
       ],
     };
@@ -698,6 +724,18 @@
               const nights = Math.round((new Date(hotel.checkOut)-new Date(hotel.checkIn))/86400000);
               return (
                 <div key={hotel.id} className="rounded-2xl overflow-hidden card-shadow" style={{ background:'white' }}>
+                  {hotel.image && (
+                    <div className="relative" style={{ height:'180px', overflow:'hidden', background:'#1C3D5A' }}>
+                      <img
+                        src={hotel.image}
+                        alt={hotel.name}
+                        loading="lazy"
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
+                      />
+                      <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.35) 100%)' }} />
+                    </div>
+                  )}
                   <div className="h-1.5" style={{ background:'linear-gradient(90deg, #1C3D5A, #C8923A, #2A6041)' }} />
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3 mb-3">
@@ -769,7 +807,10 @@
             <div className="rounded-2xl p-4 card-shadow" style={{ background:'white' }}>
               <p className="font-display text-xl font-semibold mb-3" style={{ color:'#1C3D5A' }}>Infos pratiques ✈️</p>
               {[
+                { icon:'⏰', text:'Arriver 3h avant le départ à CDG (Terminal 1)' },
                 { icon:'🛂', text:'Visa électronique (ETA) obligatoire — à demander sur eta.gov.lk avant le départ' },
+                { icon:'🤝', text:'Service Al Maha Gold Transit inclus à Doha — accueil VIP au transit' },
+                { icon:'🧳', text:'Bagage en soute : 30 kg/personne. Bagage cabine standard inclus' },
                 { icon:'💉', text:'Aucune vaccination obligatoire. Antipaludéens recommandés pour Gal Oya / Kumana' },
                 { icon:'💰', text:'Monnaie : Roupie Sri-lankaise (LKR). 1 EUR ≈ 330 LKR' },
                 { icon:'📱', text:'SIM locale à l’aéroport — excellent réseau 4G partout' },
@@ -787,10 +828,9 @@
     }
 
     function FlightCard({ flight, label, color }) {
-      const dep = new Date(flight.departure);
-      const arr = new Date(flight.arrival);
-      const fmtDate = d => d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-      const fmtTime = d => d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+      const fmtDate = d => new Date(d).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+      const fmtTime = d => new Date(d).toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+      const [showSeats, setShowSeats] = useState(false);
 
       return (
         <div className="rounded-2xl overflow-hidden card-shadow" style={{ background:'white' }}>
@@ -802,7 +842,8 @@
             <span className="text-sm" style={{ color:'rgba(255,255,255,0.75)', fontFamily:'Inter' }}>{flight.airline}</span>
           </div>
           <div className="p-4">
-            <div className="flex items-center gap-3 mb-4">
+            {/* Overall summary */}
+            <div className="flex items-center gap-3 mb-3">
               <div className="flex-1 text-center">
                 <p className="text-3xl font-bold" style={{ color:'#1C3D5A', fontFamily:'Inter' }}>{flight.fromCode}</p>
                 <p className="text-xs text-gray-400 mt-1" style={{ fontFamily:'Inter' }}>{flight.from}</p>
@@ -810,9 +851,9 @@
               <div className="flex flex-col items-center gap-1">
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full border-2 border-gray-300" />
-                  <div className="w-10 h-px bg-gray-300" />
-                  <span className="text-xs" style={{ color:'#C8923A' }}>✈️</span>
-                  <div className="w-10 h-px bg-gray-300" />
+                  <div className="w-8 h-px bg-gray-300" />
+                  <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background:'#F5E8D0', color:'#C8923A', fontFamily:'Inter', fontWeight:600 }}>DOH</span>
+                  <div className="w-8 h-px bg-gray-300" />
                   <div className="w-2 h-2 rounded-full border-2 border-gray-300" />
                 </div>
                 <span className="text-[11px] text-gray-400" style={{ fontFamily:'Inter' }}>⏱ {flight.duration}</span>
@@ -823,23 +864,74 @@
               </div>
             </div>
 
-            <div className="flex justify-between rounded-xl px-4 py-3 mb-3" style={{ background:'#F9F4EC' }}>
-              <div>
-                <p className="text-xl font-bold" style={{ color:'#1C3D5A', fontFamily:'Inter' }}>{fmtTime(dep)}</p>
-                <p className="text-[11px] text-gray-400" style={{ fontFamily:'Inter' }}>{fmtDate(dep)}</p>
+            {/* Legs */}
+            {flight.legs && (
+              <div className="flex flex-col gap-2 mb-3">
+                {flight.legs.map((leg, i) => (
+                  <div key={i} className="rounded-xl px-3 py-2.5" style={{ background:'#F9F4EC' }}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-semibold px-2 py-0.5 rounded" style={{ color:'white', background:color, fontFamily:'Inter' }}>{leg.flight}</span>
+                      <span className="text-[10px] text-gray-400" style={{ fontFamily:'Inter' }}>{leg.aircraft} · {leg.cabin}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-base font-bold leading-none" style={{ color:'#1C3D5A', fontFamily:'Inter' }}>{fmtTime(leg.dep)}</p>
+                        <p className="text-[10px] text-gray-500 mt-0.5" style={{ fontFamily:'Inter' }}>{leg.from} · {leg.fromCity}</p>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <span className="text-[10px] text-gray-400" style={{ fontFamily:'Inter' }}>{leg.duration}</span>
+                        <div className="text-xs" style={{ color:'#C8923A' }}>→</div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-base font-bold leading-none" style={{ color:'#1C3D5A', fontFamily:'Inter' }}>{fmtTime(leg.arr)}</p>
+                        <p className="text-[10px] text-gray-500 mt-0.5" style={{ fontFamily:'Inter' }}>{leg.to} · {leg.toCity}</p>
+                      </div>
+                    </div>
+                    <p className="text-[10px] text-gray-400 mt-1" style={{ fontFamily:'Inter' }}>{fmtDate(leg.dep)}</p>
+                  </div>
+                ))}
               </div>
-              <div className="text-right">
-                <p className="text-xl font-bold" style={{ color:'#1C3D5A', fontFamily:'Inter' }}>{fmtTime(arr)}</p>
-                <p className="text-[11px] text-gray-400" style={{ fontFamily:'Inter' }}>{fmtDate(arr)}</p>
-              </div>
-            </div>
+            )}
 
-            <div className="flex flex-wrap gap-2">
-              <span className="text-xs px-3 py-1 rounded-full" style={{ color:'#1C3D5A', background:'#1C3D5A18', fontFamily:'Inter' }}>
-                ✈️ {flight.flightNumber}
-              </span>
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-2">
+              {flight.confirmationCode && (
+                <span className="text-xs px-3 py-1 rounded-full font-mono" style={{ color:'#2A6041', background:'#D4EDE0', fontFamily:'Inter' }}>
+                  📋 PNR {flight.confirmationCode}
+                </span>
+              )}
               {flight.notes && <span className="text-xs px-3 py-1 rounded-full" style={{ color:'#6B7280', background:'#F3F4F6', fontFamily:'Inter' }}>ℹ️ {flight.notes}</span>}
             </div>
+
+            {/* Seats toggle */}
+            {flight.seats && (
+              <>
+                <button
+                  onClick={() => setShowSeats(!showSeats)}
+                  className="w-full mt-2 rounded-xl px-3 py-2 flex items-center justify-between"
+                  style={{ background:'#1C3D5A0F', color:'#1C3D5A', fontFamily:'Inter' }}
+                >
+                  <span className="text-xs font-semibold">💺 Sièges de la famille</span>
+                  <span className="text-xs">{showSeats ? '▲' : '▼'}</span>
+                </button>
+                {showSeats && (
+                  <div className="mt-2 rounded-xl p-3" style={{ background:'#F9F4EC' }}>
+                    <div className="grid grid-cols-3 gap-2 text-[11px]" style={{ fontFamily:'Inter' }}>
+                      <div className="font-semibold" style={{ color:'#6B7280' }}>Famille</div>
+                      <div className="font-semibold text-center" style={{ color:'#6B7280' }}>{flight.legs?.[0]?.flight || 'Vol 1'}</div>
+                      <div className="font-semibold text-center" style={{ color:'#6B7280' }}>{flight.legs?.[1]?.flight || 'Vol 2'}</div>
+                      {flight.seats.map((s, i) => (
+                        <React.Fragment key={i}>
+                          <div style={{ color:'#1C3D5A', fontWeight:500 }}>{s.name}</div>
+                          <div className="text-center font-mono" style={{ color:'#1C3D5A' }}>{s.leg1}</div>
+                          <div className="text-center font-mono" style={{ color:'#1C3D5A' }}>{s.leg2}</div>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       );
